@@ -1,0 +1,70 @@
+<html ng-app>
+<head>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+
+<style type="text/css">
+	* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+ 
+body, html { margin: 0; }
+p { margin: 0; }
+input { width: 100%; }
+ 
+pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+ 
+div.repo {
+    border-bottom: 1px solid;
+    cursor: pointer;
+}
+ 
+#search, #repo, #user { float: left; }
+#search { width: 20%; }
+#repo { width: 60%; }
+#user { width: 20%; }
+</style>
+<script type="text/javascript">
+	var app = angular.module('githubsearch', []);
+	app.controller('SearchController', function SearchController($scope) {
+     
+	});
+	app.factory('Github', function Github($http){
+		return {
+
+			searchRepos: function searchRepos(query, callback) {
+    	$http.get('https://api.github.com/search/repositories', { params: { q: query } })
+        .success(function (data) {
+            callback(null, data);
+        })
+        .error(function (e) {
+            callback(e);
+        });
+}
+
+		};
+
+	});
+</script>
+</head>
+<body ng-app="githubsearch">
+
+ <div id="search">
+    <input ng-model="query" placeholder="search" ng-keyup="$event.keyCode == 13 && executeSearch()">
+    <div class="repo" ng-repeat="repo in repos" ng-click="openRepo(repo.full_name)">
+        <strong>{{ repo.full_name }}</strong>
+        <p>{{ repo.description }}</p>
+    </div>
+</div>
+
+</body>
+</html>
