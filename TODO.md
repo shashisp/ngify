@@ -1,3 +1,4 @@
-  - cleanup everythin
+  - <s> cleanup everythin </s>
+  - Add topics
   - Track by topic
-  - make it more organized and push it gh-pages branch as demos
+  - <s> make it more organized and push it gh-pages branch as demos </s>
